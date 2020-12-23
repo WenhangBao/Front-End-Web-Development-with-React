@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle,Breadcrumb,BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import CommentForm from './CommentFormComponent';
 
 
     function Renderdish({dish}){
@@ -43,7 +44,7 @@ import { Link } from 'react-router-dom';
                 <ul className= "list-unstyled">
                     {commentstext}
                 </ul>
-
+                <CommentForm />
             </div>
 
         );
