@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle,Breadcrumb,BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Label, Col, Row  } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 import { Link } from 'react-router-dom';
 
 const required = (val) => val && val.length;
@@ -108,15 +109,19 @@ class CommentForm extends Component {
 
         const commentstext = comments.map((comment,addComment,dishId) => {
             return(
-                <div class="container">
-                    <li key={comment.id}>{comment.comment}</li>
-                    <br></br>
-                    <li>--{comment.author} , {new Intl.DateTimeFormat('en-US', { 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: '2-digit' 
-                            }).format(new Date(comment.date))}</li>
-                    <br></br>
+                <div className="container">
+                    <li key={comment.id}>
+                        <div>
+                            <p>{comment.comment}</p>
+                            <p>
+                            --{comment.author} , {new Intl.DateTimeFormat('en-US', { 
+                                    year: 'numeric', 
+                                    month: 'long', 
+                                    day: '2-digit' 
+                                    }).format(new Date(comment.date))}
+                            </p>
+                        </div>
+                    </li>
                 </div>
 
             );
@@ -136,6 +141,26 @@ class CommentForm extends Component {
     }
 
     const Dishdetail =(props) =>{
+        if(props.isLoading) {
+            return (
+                <div className="container">
+                    <div className="row>">
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+
+        else if (props.errMess){
+            return (
+                <div className="container">
+                    <div className="row>">
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
+
         return(
             <div className="container">
             <div className="row">
