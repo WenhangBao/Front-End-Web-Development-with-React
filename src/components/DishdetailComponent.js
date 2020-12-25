@@ -5,6 +5,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -94,13 +95,19 @@ class CommentForm extends Component {
     function Renderdish({dish}){
         return(
             <div>
-                <Card>
-                    <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>
+                <FadeTransform
+                    in
+                    transformProps={{
+                        exitTransform: 'scale(0.5) translateY(-50%)'
+                    }}>
+                    <Card>
+                        <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                        <CardBody>
+                            <CardTitle>{dish.name}</CardTitle>
+                            <CardText>{dish.description}</CardText>
+                        </CardBody>
+                    </Card>
+                </FadeTransform>
             </div>
         );
 
@@ -111,6 +118,7 @@ class CommentForm extends Component {
         const commentstext = comments.map((comment,addComment,dishId) => {
             return(
                 <div className="container">
+                    <Fade in>
                     <li key={comment.id}>
                         <div>
                             <p>{comment.comment}</p>
@@ -123,6 +131,8 @@ class CommentForm extends Component {
                             </p>
                         </div>
                     </li>
+                    </Fade>
+                    
                 </div>
 
             );
